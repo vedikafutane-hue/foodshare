@@ -1,0 +1,138 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserStatus = 
+ variant {
+   active;
+   inactive;
+ };
+type UserRole__1 = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserRole = 
+ variant {
+   admin;
+   deliveryAgent;
+   donor;
+   ngo;
+ };
+type UserId = principal;
+type User = 
+ record {
+   createdAt: int;
+   id: principal;
+   name: text;
+   orgName: opt text;
+   phone: text;
+   role: UserRole;
+   status: UserStatus;
+ };
+type Timestamp = int;
+type RegisterUserRequest = 
+ record {
+   name: text;
+   orgName: opt text;
+   phone: text;
+   role: UserRole;
+ };
+type ExternalBlob = blob;
+type DonationStatus = 
+ variant {
+   accepted;
+   assigned;
+   cancelled;
+   completed;
+   expired;
+   inTransit;
+   pending;
+   rejected;
+ };
+type DonationId = nat;
+type Donation = 
+ record {
+   acceptedBy: opt UserId;
+   assignedTo: opt UserId;
+   contactPhone: text;
+   createdAt: Timestamp;
+   donorId: UserId;
+   foodType: text;
+   id: DonationId;
+   imageBlob: opt ExternalBlob;
+   notes: opt text;
+   pickupAddress: text;
+   pickupWindowEnd: Timestamp;
+   pickupWindowStart: Timestamp;
+   quantity: nat;
+   status: DonationStatus;
+   unit: text;
+ };
+type CreateDonationRequest = 
+ record {
+   contactPhone: text;
+   foodType: text;
+   imageBlob: opt ExternalBlob;
+   pickupAddress: text;
+   pickupWindowEnd: Timestamp;
+   pickupWindowStart: Timestamp;
+   quantity: nat;
+   unit: text;
+ };
+type Analytics = 
+ record {
+   accepted: nat;
+   activeNGOs: nat;
+   assigned: nat;
+   cancelled: nat;
+   completed: nat;
+   expired: nat;
+   pending: nat;
+   rejected: nat;
+   totalDonations: nat;
+   totalQuantity: nat;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  acceptDonation: (donationId: DonationId, notes: opt text) -> (Donation);
+  assignCallerUserRole: (user: principal, role: UserRole__1) -> ();
+  assignDeliveryAgent: (donationId: DonationId, agentId: UserId) ->
+   (Donation);
+  cancelDonation: (donationId: DonationId) -> (Donation);
+  createDonation: (req: CreateDonationRequest) -> (Donation);
+  deactivateUser: (userId: UserId) -> ();
+  getAllUsers: () -> (vec User) query;
+  getAnalytics: () -> (Analytics) query;
+  getAssignedPickups: () -> (vec Donation) query;
+  getCallerUserRole: () -> (UserRole__1) query;
+  getDonations: () -> (vec Donation) query;
+  getDonationsByDonor: () -> (vec Donation) query;
+  getMyProfile: () -> (opt User) query;
+  getPendingDonations: () -> (vec Donation) query;
+  isCallerAdmin: () -> (bool) query;
+  markPickupCompleted: (donationId: DonationId, notes: opt text) ->
+   (Donation);
+  reactivateUser: (userId: UserId) -> ();
+  registerUser: (req: RegisterUserRequest) -> (User);
+  rejectDonation: (donationId: DonationId, notes: opt text) -> (Donation);
+}

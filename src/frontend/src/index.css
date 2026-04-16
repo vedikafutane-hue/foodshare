@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Fraunces", serif;
+    --font-body: "Nunito", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.5rem;
+
+    /* Warm neutral background */
+    --background: 0.98 0.005 85;
+    --foreground: 0.18 0.02 30;
+    --card: 1.0 0 0;
+    --card-foreground: 0.18 0.02 30;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.18 0.02 30;
+
+    /* Donor: Emerald green */
+    --primary: 0.6 0.2 152;
+    --primary-foreground: 0.99 0 0;
+
+    /* NGO: Trust blue */
+    --secondary: 0.52 0.22 250;
+    --secondary-foreground: 0.99 0 0;
+
+    --muted: 0.94 0.005 85;
+    --muted-foreground: 0.5 0.01 60;
+
+    /* Agent: Action orange */
+    --accent: 0.7 0.22 50;
+    --accent-foreground: 0.15 0.05 30;
+
+    --destructive: 0.56 0.23 22;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.9 0.005 85;
+    --input: 0.95 0.005 85;
+    --ring: 0.6 0.2 152;
+
+    --chart-1: 0.6 0.2 152;
+    --chart-2: 0.52 0.22 250;
+    --chart-3: 0.7 0.22 50;
+    --chart-4: 0.56 0.23 22;
+    --chart-5: 0.72 0.15 85;
+
+    --sidebar: 1.0 0 0;
+    --sidebar-foreground: 0.18 0.02 30;
+    --sidebar-primary: 0.6 0.2 152;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.7 0.22 50;
+    --sidebar-accent-foreground: 0.15 0.05 30;
+    --sidebar-border: 0.9 0.005 85;
+    --sidebar-ring: 0.6 0.2 152;
+  }
+
+  .dark {
+    --background: 0.13 0.01 30;
+    --foreground: 0.96 0.005 60;
+    --card: 0.17 0.01 30;
+    --card-foreground: 0.96 0.005 60;
+    --popover: 0.22 0.01 30;
+    --popover-foreground: 0.96 0.005 60;
+
+    --primary: 0.72 0.19 152;
+    --primary-foreground: 0.13 0.01 30;
+
+    --secondary: 0.65 0.2 250;
+    --secondary-foreground: 0.13 0.01 30;
+    --muted: 0.24 0.01 30;
+    --muted-foreground: 0.56 0.01 60;
+
+    --accent: 0.75 0.21 50;
+    --accent-foreground: 0.13 0.01 30;
+
+    --destructive: 0.66 0.22 22;
+    --destructive-foreground: 0.96 0 0;
+
+    --border: 0.26 0.01 30;
+    --input: 0.22 0.01 30;
+    --ring: 0.72 0.19 152;
+
+    --chart-1: 0.72 0.19 152;
+    --chart-2: 0.65 0.2 250;
+    --chart-3: 0.75 0.21 50;
+    --chart-4: 0.66 0.22 22;
+    --chart-5: 0.78 0.16 85;
+
+    --sidebar: 0.17 0.01 30;
+    --sidebar-foreground: 0.96 0.005 60;
+    --sidebar-primary: 0.72 0.19 152;
+    --sidebar-primary-foreground: 0.13 0.01 30;
+    --sidebar-accent: 0.75 0.21 50;
+    --sidebar-accent-foreground: 0.13 0.01 30;
+    --sidebar-border: 0.26 0.01 30;
+    --sidebar-ring: 0.72 0.19 152;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/Nunito.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-base font-semibold rounded-lg transition-smooth;
+  }
+
+  .btn-primary {
+    @apply btn-lg bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply btn-lg bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-95 shadow-sm;
+  }
+
+  .btn-accent {
+    @apply btn-lg bg-accent text-accent-foreground hover:bg-accent/90 active:scale-95 shadow-sm;
+  }
+
+  .card-elevated {
+    @apply bg-card text-card-foreground border border-border shadow-xs rounded-xl;
+  }
+
+  /* Role-specific left border color coding */
+  .role-donor {
+    @apply border-l-4 border-l-primary;
+  }
+
+  .role-ngo {
+    @apply border-l-4 border-l-secondary;
+  }
+
+  .role-agent {
+    @apply border-l-4 border-l-accent;
+  }
+
+  /* Subtle section dividers */
+  .section-muted {
+    @apply bg-muted/40;
+  }
+}

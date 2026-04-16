@@ -1,0 +1,78 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DonationId__752396770 = Nat;
+type DonationInternal__239905301 =
+  {
+    var acceptedBy : ?UserId__158757552;
+    var assignedTo : ?UserId__158757552;
+    contactPhone : Text;
+    createdAt : Timestamp__301639476;
+    donorId : UserId__158757552;
+    foodType : Text;
+    id : DonationId__752396770;
+    imageBlob : ?ExternalBlob__246066408;
+    var notes : ?Text;
+    pickupAddress : Text;
+    pickupWindowEnd : Timestamp__301639476;
+    pickupWindowStart : Timestamp__301639476;
+    quantity : Nat;
+    var status : DonationStatus__87493921;
+    unit : Text
+  };
+type DonationStatus__87493921 =
+  {
+    #accepted;
+    #assigned;
+    #cancelled;
+    #completed;
+    #expired;
+    #inTransit;
+    #pending;
+    #rejected
+  };
+type ExternalBlob__246066408 = Blob;
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserInternal__993508630 =
+  {
+    createdAt : Int;
+    id : Principal;
+    var name : Text;
+    var orgName : ?Text;
+    var phone : Text;
+    role : UserRole__41952412;
+    var status : UserStatus__357598751
+  };
+type UserRole__1054455867 = {#admin; #guest; #user};
+type UserRole__41952412 = {#admin; #deliveryAgent; #donor; #ngo};
+type UserStatus__357598751 = {#active; #inactive};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable donations :
+    {
+      var root :
+        Node__46230540<DonationId__752396770, DonationInternal__239905301>;
+      var size : Nat__490723111
+    };
+  stable users :
+    {
+      var root : Node__46230540<UserId__158757552, UserInternal__993508630>;
+      var size : Nat__490723111
+    }
+};

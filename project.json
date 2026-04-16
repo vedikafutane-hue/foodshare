@@ -1,0 +1,23 @@
+{
+  "overview": "FoodShare is a food waste reduction platform connecting food donors (hotels, event managers, individuals) with NGOs and delivery agents. Features four role-protected dashboards: Donors post food donations and track status; NGOs browse and accept donations, assign pickup agents; Delivery Agents receive and complete pickups; Admins manage users and view analytics. Built on the Internet Computer with real-time polling, image uploads, and Internet Identity authentication.",
+  "features": [
+    "Donor dashboard: post food donations with photo, track donation status in real time",
+    "NGO dashboard: live donation feed with polling, accept/reject requests, assign delivery agents",
+    "Delivery Agent dashboard: view assigned pickups, navigate to location, mark pickups complete",
+    "Admin dashboard: user management, analytics (food saved, people served, completion counts)",
+    "Internet Identity login with role-based access control",
+    "Food image uploads via object-storage extension",
+    "Role-protected routes for all 4 user types"
+  ],
+  "category": "social-impact",
+  "tags": [
+    "food-waste",
+    "ngo",
+    "donations",
+    "delivery",
+    "analytics",
+    "multi-role",
+    "internet-computer"
+  ],
+  "last_updated": "2026-04-16T19:12:42.607Z"
+}
